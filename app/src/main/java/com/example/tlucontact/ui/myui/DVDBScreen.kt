@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.tlucontact.entities.DVDB
 
+// dữ liệu tạm thời
 val dvdbList = listOf(
     DVDB("DVDB001", "Phòng Đào Tạo", "02438581447", "daotao@tlu.edu.vn", "Số 1, Đại Cồ Việt, Hà Nội"),
     DVDB("DVDB002", "Phòng Hành Chính", "02438654321", "hanhchinh@tlu.edu.vn", "Số 1, Đại Cồ Việt, Hà Nội"),
@@ -24,9 +25,10 @@ val dvdbList = listOf(
     DVDB("DVDB005", "Phòng Công Tác Sinh Viên", "02438987654", "ctsv@tlu.edu.vn", "Số 1, Đại Cồ Việt, Hà Nội"),
     DVDB("DVDB006", "Thư Viện", "02438123456", "thuvien@tlu.edu.vn", "Số 1, Đại Cồ Việt, Hà Nội")
 )
-
+// Compose màn hình DVDB
 @Composable
 fun DVDBScreen(navController: NavController, searchQuery: String, sortType: SortType) {
+    // xác định danh sách hiển thị dựa trên searchQuery và sortType
     val filteredList = dvdbList.filter { it.name.contains(searchQuery, ignoreCase = true) }
         .sortedWith(
             when (sortType) {
@@ -35,15 +37,16 @@ fun DVDBScreen(navController: NavController, searchQuery: String, sortType: Sort
             }
         )
 
+
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        if (filteredList.isEmpty()) {
+        if (filteredList.isEmpty()) { // trường hợp danh sách rỗng ( không tìm thấy kết quả )
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text("Không có kết quả", fontSize = 18.sp)
             }
         } else {
             Text("Danh sách đơn vị", fontSize = 24.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 8.dp))
 
-            LazyColumn(modifier = Modifier.fillMaxSize()) {
+            LazyColumn(modifier = Modifier.fillMaxSize()) { // dùng lazycolumn để hiển thị danh sách dạng cột ( tương tự recyclerview )
                 items(filteredList) { dvdb ->
                     Card(
                         modifier = Modifier
@@ -51,7 +54,9 @@ fun DVDBScreen(navController: NavController, searchQuery: String, sortType: Sort
                             .padding(8.dp),
                         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                         onClick = {
-                            navController.navigate("detail/${dvdb.id}/false")
+                            navController.navigate("detail/${dvdb.id}/false")  // khi click vào 1 item thì chuyển sang màn detail
+                                                                                    // thông tin gửi sang màn hình details bao gồm : id item ,
+                                                                                    // kiểu của item ( isCBGV = false )
                         }
                     ) {
                         Row(
@@ -60,6 +65,7 @@ fun DVDBScreen(navController: NavController, searchQuery: String, sortType: Sort
                                 .padding(16.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
+                            // giao diện card
                             Icon(
                                 imageVector = Icons.Default.AccountBox,
                                 contentDescription = "Icon phòng ban",
