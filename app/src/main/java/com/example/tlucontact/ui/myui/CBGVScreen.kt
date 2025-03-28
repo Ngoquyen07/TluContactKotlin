@@ -3,10 +3,13 @@ package com.example.tlucontact.ui.myui
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -41,6 +44,8 @@ fun CBGVScreen(navController: NavController, searchQuery: String, sortType: Sort
                 Text("Không có kết quả", fontSize = 18.sp)
             }
         } else {
+            Text("Danh sách giảng viên", fontSize = 24.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 8.dp))
+
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(filteredList) { cbgv ->
                     Card(
@@ -52,11 +57,31 @@ fun CBGVScreen(navController: NavController, searchQuery: String, sortType: Sort
                             navController.navigate("detail/${cbgv.id}/true")
                         }
                     ) {
-                        Text(
-                            text = cbgv.name,
-                            modifier = Modifier.padding(16.dp),
-                            fontSize = 18.sp
-                        )
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.AccountCircle,
+                                contentDescription = "Avatar",
+                                modifier = Modifier.size(50.dp)
+                            )
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Column {
+                                Text(
+                                    text = cbgv.name,
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Text(
+                                    text = cbgv.position,
+                                    fontSize = 14.sp,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
                     }
                 }
             }

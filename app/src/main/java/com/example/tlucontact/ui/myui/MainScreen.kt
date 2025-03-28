@@ -5,11 +5,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -17,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.tlucontact.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -86,7 +89,11 @@ fun SearchTopBar(
         },
         actions = {
             IconButton(onClick = onSortClick) {
-                Icon(Icons.Default.List, contentDescription = "Sắp xếp")
+                Icon(
+                    painter = painterResource(R.drawable.sorticon),
+                    contentDescription = "Sắp xếp",
+                    tint = Color.White
+                )
             }
         },
         colors = TopAppBarDefaults.smallTopAppBarColors(
